@@ -89,7 +89,7 @@ module.exports = {
         "init-declarations": "error",
         "jsx-quotes": [
             "error",
-            "prefer-double"
+            "prefer-single"
         ],
         "key-spacing": "error",
         "keyword-spacing": [
@@ -116,10 +116,10 @@ module.exports = {
         "multiline-ternary": "error",
         "new-cap": "error",
         "new-parens": "error",
-        "newline-after-var": [
-            "error",
-            "never"
-        ],
+        // "newline-after-var": [
+        //     "error",
+        //     "never"
+        // ],
         "newline-before-return": "error",
         "newline-per-chained-call": "error",
         "no-alert": "error",
@@ -140,7 +140,11 @@ module.exports = {
         "no-extend-native": "error",
         "no-extra-bind": "error",
         "no-extra-label": "error",
-        "no-extra-parens": "error",
+        "no-extra-parens": [
+          "error",
+          "all",
+          {ignoreJSX: "all"}
+        ],
         "no-floating-decimal": "error",
         "no-implicit-coercion": "error",
         "no-implicit-globals": "error",
@@ -202,6 +206,7 @@ module.exports = {
         "no-unmodified-loop-condition": "error",
         "no-unneeded-ternary": "error",
         "no-unused-expressions": "error",
+        "no-unused-vars": "warn",
         "no-use-before-define": "error",
         "no-useless-call": "error",
         "no-useless-computed-key": "error",
@@ -239,11 +244,12 @@ module.exports = {
         "prefer-template": "error",
         "quote-props": [
           "error",
-          "as-needed"
+          "consistent"
         ],
         "quotes": [
             "error",
-            "single"
+            "single",
+            { "allowTemplateLiterals": true }
         ],
         "radix": "error",
         "require-await": "error",
@@ -256,7 +262,7 @@ module.exports = {
             "last"
         ],
         "sort-imports": "off",
-        "sort-keys": "error",
+        // "sort-keys": "error",
         "sort-vars": "error",
         "space-before-blocks": "error",
         "space-before-function-paren": "off",
