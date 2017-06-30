@@ -67,7 +67,7 @@ module.exports = {
                 "allowKeywords": true
             }
         ],
-        "eol-last": "error",
+        "eol-last": "warn",
         "eqeqeq": "error",
         "for-direction": "error",
         "func-call-spacing": "error",

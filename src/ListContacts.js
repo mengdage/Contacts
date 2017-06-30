@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import escapeStringRegexp from 'escape-string-regexp';
 import sortBy from 'sort-by';
+import { Link } from 'react-router-dom';
 
 
 class ListContacts extends Component{
@@ -14,27 +15,47 @@ class ListContacts extends Component{
     query: query.trim()
   });
 
+  clearQuery = () => (
+    this.setState({
+      query: ''
+    })
+  );
+
   render() {
+    let { query } = this.state,
+        { removeContact, contacts } = this.props;
     let showingContacts;
-    if (this.state.query) {
-      const match = new RegExp(escapeStringRegexp(this.state.query), 'i');
-      showingContacts = this.props.contacts.filter((c) => match.test(c.name));
+    if (query) {
+      const match = new RegExp(escapeStringRegexp(query), 'i');
+      showingContacts = contacts.filter((c) => match.test(c.name));
     } else {
-      showingContacts = this.props.contacts;
+      showingContacts = contacts;
     }
     showingContacts.sort(sortBy('name'));
-    console.log(sortBy('name'));
+
     return (
       <div className='list-contacts'>
         <div className='list-contacts-top'>
           <input
                 className='search-contacts'
                 placeholder='Search contacts'
-                value={this.state.query}
+                value={query}
                 onChange={(event) => this.updateQuery(event.target.value)}
                 autoFocus
           />
+          <Link to="/create"
+             className='add-contact'>
+             Create contact
+          </Link>
         </div>
+
+        {showingContacts.length !== contacts.length && (
+          <div className='showing-contacts'>
+            <span>Now showing {showingContacts.length} of {contacts.length} contacts</span>
+            <button onClick={this.clearQuery}>Show all</button>
+          </div>
+        )}
+
         <ol className='contact-list'>
           {showingContacts.map((contact, index) => (
             <li className='contact-list-item' key={index}>
@@ -46,8 +67,9 @@ class ListContacts extends Component{
                 <p>{contact.email}</p>
               </div>
               <div onClick={
-                            () => this.props.removeContact(contact)
-                           } className='contact-remove'>
+                            () => removeContact(contact)
+                           }
+                   className='contact-remove'>
                 Remove
               </div>
             </li>
